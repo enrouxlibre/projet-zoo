@@ -1,0 +1,18 @@
+# General
+.git
+.gitignore
+README.md
+.DS_Store
+.env.local
+.env.*.local
+
+# Backend
+backend/vendor/
+backend/var/cache/
+backend/var/log/
+backend/.env.local
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
