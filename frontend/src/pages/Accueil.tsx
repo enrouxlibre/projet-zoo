@@ -1,6 +1,6 @@
-import Banner from "../Banner/Banner";
-import ArticleLeft from "../ArticleLeft/ArticleLeft";
-import ArticleRight from "../ArticleRight/ArticleRight";
+import Banner from "../composants/Banner/Banner.tsx";
+import ArticleLeft from "../composants/ArticleLeft/ArticleLeft.tsx";
+import ArticleRight from "../composants/ArticleRight/ArticleRight.tsx";
 import backgroundImg from "../assets/banner.webp";
 import trexImg from "../assets/trex.jpg";
 
