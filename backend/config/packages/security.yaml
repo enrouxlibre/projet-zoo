@@ -16,17 +16,21 @@ security:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
-        api:
-            pattern: ^/api
+
+        login:
+            pattern: ^/api/login
             stateless: true
-            jwt: ~
             provider: app_user_provider
             json_login:
                 check_path: /api/login
                 username_path: email
                 password_path: password
-            logout:
-                path: /api/logout
+                success_handler: App\Security\LoginSuccessHandler
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+            provider: app_user_provider
 
     # Note: Only the *first* matching rule is applied
     access_control:
