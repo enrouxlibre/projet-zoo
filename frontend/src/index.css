@@ -1,5 +1,18 @@
+:root {
+  --primary-color: #235c2d;
+  --primary-color-transparent: #224718b6;
+  --secondary-color: #6c757d;
+  --background-color: #f8f9fa;
+  --text-color: white;
+  --secondary-text-color: #000000;
+  --font-family: "Arial", sans-serif;
+}
 html,
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+body {
+  position: relative;
 }

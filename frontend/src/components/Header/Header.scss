@@ -1,11 +1,13 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #235c2d;
-  color: white;
+  background-color: var(--primary-color-transparent);
+  color: var(--text-color);
+  z-index: 1000;
 
   .logo {
     width: 60px;
