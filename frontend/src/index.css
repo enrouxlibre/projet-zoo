@@ -1,6 +1,11 @@
 :root {
-  --primary-color: #235c2d;
-  --primary-color-transparent: #224718b6;
+  --primary-color: #d97706;/* #235c2d;*/
+  --primary-color-transparent:linear-gradient(
+    to right,
+    #92400e 0%,      /* côté gauche */
+    #facc15a8 50%,     /* centre jaune clair */
+    #92400e 100%     /* côté droit */
+  ); /*#224718b6;*/
   --secondary-color: #6c757d;
   --background-color: #f8f9fa;
   --text-color: white;
