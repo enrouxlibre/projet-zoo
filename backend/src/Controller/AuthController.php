@@ -27,6 +27,7 @@ class AuthController
             "message" => "Logged out successfully.",
         ], Response::HTTP_OK);
         $response->headers->clearCookie($this->jwtCookieName, path: $this->jwtCookiePath);
+        $response->headers->clearCookie('X-CSRF-TOKEN', path: $this->jwtCookiePath);
         // Handled by the logout firewall and LogoutEventSubscriber
         return $response;
     }

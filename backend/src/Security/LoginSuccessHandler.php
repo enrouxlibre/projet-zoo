@@ -22,11 +22,12 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): JsonResponse
     {
+        $response = new JsonResponse(['message' => 'Login successful.']);
+
         /** @var UserInterface $user */
         $user = $token->getUser();
         $token = $this->jwtManager->create($user);
 
-        $response = new JsonResponse(['message' => 'Login successful.']);
         $cookie = Cookie::create(
             name: $this->jwtCookieName,
             value: $token,
@@ -37,6 +38,18 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         );
 
         $response->headers->setCookie($cookie);
+
+        $csrfToken = bin2hex(random_bytes(32));
+        $csrfCookie = Cookie::create(
+            name: 'X-CSRF-TOKEN',
+            value: $csrfToken,
+            path: $this->jwtCookiePath,
+            secure: $this->jwtCookieSecure,
+            httpOnly: false,
+            sameSite: $this->jwtCookieSameSite,
+        );
+
+        $response->headers->setCookie($csrfCookie);
 
         return $response;
     }
