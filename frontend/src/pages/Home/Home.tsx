@@ -1,7 +1,7 @@
 import Banner from "../../components/Banner/Banner.tsx";
 import Article from "../../components/Article/Article.tsx";
-import backgroundImg from "@images/banner.webp";
-import trexImg from "@images/trex.jpg";
+import backgroundImg from "../../assets/banner.webp";
+import trexImg from "../../assets/trex.jpg";
 
 function Home() {
   return (

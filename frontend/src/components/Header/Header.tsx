@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 import "./Header.scss";
 function Header() {
@@ -6,18 +7,21 @@ function Header() {
       <img src={logo} alt="logo" className="logo" />
       <nav>
         <ul className="menu">
-          <a href="#">
-            <li>Accueil</li>
-          </a>
-          <a href="#">
-            <li>Nos dinosaures</li>
-          </a>
-          <a href="#">
-            <li>Contact</li>
-          </a>
-          <a href="#">
-            <li>Connexion</li>
-          </a>
+          <li>
+            <NavLink to="/">Accueil</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/dinosaurs">Nos dinosaures</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/login">Connexion</NavLink>
+          </li>
         </ul>
       </nav>
     </div>

@@ -18,7 +18,7 @@ function Article({
         <img src={img} alt={`image de ${title}`} />
         <div className="article-text">
           <h3>{title}</h3>
-          <p>{children}</p>
+          {children}
         </div>
       </div>
     </SlideInSection>
