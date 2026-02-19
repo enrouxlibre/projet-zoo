@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Species;
+use App\Enum\ClearanceLevel;
 use App\Enum\SpeciesDiet;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,11 +40,18 @@ class SpeciesController
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $clearance = ClearanceLevel::tryFrom((int) $clearanceValue);
+        if ($clearance === null) {
+            return new JsonResponse([
+                'error' => 'Clearance must be between 1 and 5.',
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $species = new Species();
         $species
             ->setName($name)
             ->setDiet($diet)
-            ->setClearance((int) $clearanceValue);
+            ->setClearance($clearance);
 
         $entityManager->persist($species);
         $entityManager->flush();
@@ -52,7 +60,7 @@ class SpeciesController
             'id' => $species->getId(),
             'name' => $species->getName(),
             'diet' => $species->getDiet()?->value,
-            'clearance' => $species->getClearance(),
+            'clearance' => $species->getClearance()?->value,
         ], JsonResponse::HTTP_CREATED);
     }
 }

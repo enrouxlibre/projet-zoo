@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ClearanceLevel;
 use App\Repository\EnclosureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,8 +26,8 @@ class Enclosure
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $clearance = null;
+    #[ORM\Column(enumType: ClearanceLevel::class)]
+    private ?ClearanceLevel $clearance = null;
 
     #[ORM\Column(length: 255)]
     private ?string $position = null;
@@ -86,12 +87,12 @@ class Enclosure
         return $this;
     }
 
-    public function getClearance(): ?int
+    public function getClearance(): ?ClearanceLevel
     {
         return $this->clearance;
     }
 
-    public function setClearance(int $clearance): static
+    public function setClearance(ClearanceLevel $clearance): static
     {
         $this->clearance = $clearance;
 

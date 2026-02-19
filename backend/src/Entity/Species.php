@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ClearanceLevel;
 use App\Enum\SpeciesDiet;
 use App\Repository\SpeciesRepository;
 use BcMath\Number;
@@ -21,8 +22,8 @@ class Species
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $clearance = null;
+    #[ORM\Column(enumType: ClearanceLevel::class)]
+    private ?ClearanceLevel $clearance = null;
 
     #[ORM\Column(enumType: SpeciesDiet::class)]
     private ?SpeciesDiet $diet = null;
@@ -55,12 +56,12 @@ class Species
         return $this;
     }
 
-    public function getClearance(): ?int
+    public function getClearance(): ?ClearanceLevel
     {
         return $this->clearance;
     }
 
-    public function setClearance(int $clearance): static
+    public function setClearance(ClearanceLevel $clearance): static
     {
         $this->clearance = $clearance;
 

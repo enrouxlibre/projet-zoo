@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ClearanceLevel;
 use App\Repository\PersonnelInfoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,8 +22,8 @@ class PersonnelInfo
     #[ORM\Column(length: 255)]
     private ?string $job = null;
 
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $clearance = null;
+    #[ORM\Column(enumType: ClearanceLevel::class)]
+    private ?ClearanceLevel $clearance = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $dateOfBirth = null;
@@ -56,12 +57,12 @@ class PersonnelInfo
         return $this;
     }
 
-    public function getClearance(): ?int
+    public function getClearance(): ?ClearanceLevel
     {
         return $this->clearance;
     }
 
-    public function setClearance(int $clearance): static
+    public function setClearance(ClearanceLevel $clearance): static
     {
         $this->clearance = $clearance;
 
