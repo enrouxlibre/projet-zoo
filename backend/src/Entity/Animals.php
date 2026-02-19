@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\AnimalsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: AnimalsRepository::class)]
 class Animals
@@ -12,6 +14,9 @@ class Animals
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    private ?Uuid $uuid = null;
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
     #[ORM\JoinColumn(nullable: false)]
@@ -36,9 +41,26 @@ class Animals
     #[ORM\JoinColumn(nullable: false)]
     private ?Enclosure $enclosure = null;
 
+    public function __construct()
+    {
+        $this->uuid = Uuid::v4();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUuid(): ?Uuid
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(Uuid $uuid): static
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     public function getSpecies(): ?Species
