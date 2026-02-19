@@ -29,8 +29,11 @@ class Enclosure
     #[ORM\Column(enumType: ClearanceLevel::class)]
     private ?ClearanceLevel $clearance = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $position = null;
+    #[ORM\Column(type: Types::INTEGER)]
+    private ?int $positionX = null;
+
+    #[ORM\Column(type: Types::INTEGER)]
+    private ?int $positionY = null;
 
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $size = null;
@@ -99,14 +102,26 @@ class Enclosure
         return $this;
     }
 
-    public function getPosition(): ?string
+    public function getPositionX(): ?int
     {
-        return $this->position;
+        return $this->positionX;
     }
 
-    public function setPosition(string $position): static
+    public function setPositionX(int $positionX): static
     {
-        $this->position = $position;
+        $this->positionX = $positionX;
+
+        return $this;
+    }
+
+    public function getPositionY(): ?int
+    {
+        return $this->positionY;
+    }
+
+    public function setPositionY(int $positionY): static
+    {
+        $this->positionY = $positionY;
 
         return $this;
     }
