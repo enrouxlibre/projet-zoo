@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\SpeciesDiet;
 use App\Repository\SpeciesRepository;
 use BcMath\Number;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,8 +24,8 @@ class Species
     #[ORM\Column]
     private ?int $clearance = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $diet = null;
+    #[ORM\Column(enumType: SpeciesDiet::class)]
+    private ?SpeciesDiet $diet = null;
 
     /**
      * @var Collection<int, Animals>
@@ -66,12 +67,12 @@ class Species
         return $this;
     }
 
-    public function getDiet(): ?string
+    public function getDiet(): ?SpeciesDiet
     {
         return $this->diet;
     }
 
-    public function setDiet(string $diet): static
+    public function setDiet(SpeciesDiet $diet): static
     {
         $this->diet = $diet;
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Species;
+use App\Enum\SpeciesDiet;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,12 +23,19 @@ class SpeciesController
         }
 
         $name = trim((string) ($payload['name'] ?? ''));
-        $diet = trim((string) ($payload['diet'] ?? ''));
+        $dietValue = trim((string) ($payload['diet'] ?? ''));
         $clearanceValue = $payload['clearance'] ?? null;
 
-        if ($name == '' || $diet == '' || $clearanceValue === null || !is_numeric($clearanceValue)) {
+        if ($name == '' || $dietValue == '' || $clearanceValue === null || !is_numeric($clearanceValue)) {
             return new JsonResponse([
                 'error' => 'Fields name, diet, and clearance are required.',
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $diet = SpeciesDiet::tryFrom($dietValue);
+        if ($diet === null) {
+            return new JsonResponse([
+                'error' => 'Diet must be carnivorous, herbivorous, or omnivorous.',
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -43,7 +51,7 @@ class SpeciesController
         return new JsonResponse([
             'id' => $species->getId(),
             'name' => $species->getName(),
-            'diet' => $species->getDiet(),
+            'diet' => $species->getDiet()?->value,
             'clearance' => $species->getClearance(),
         ], JsonResponse::HTTP_CREATED);
     }
