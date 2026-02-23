@@ -1,0 +1,18 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Zoo API
+            version: 1.0.0
+        components:
+            securitySchemes:
+                csrfToken:
+                    type: apiKey
+                    in: header
+                    name: X-CSRF-TOKEN
+                    description: CSRF token header required for POST, PUT, PATCH and DELETE requests.
+        security:
+            - csrfToken: []
+    areas:
+        default:
+            path_patterns:
+                - ^/api(?!/doc$)(?!/doc\.json$)
