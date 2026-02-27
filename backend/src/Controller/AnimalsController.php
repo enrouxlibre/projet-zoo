@@ -13,10 +13,6 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Serializer\Exception\ExtraAttributesException;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
-use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class AnimalsController
@@ -219,16 +215,11 @@ class AnimalsController
         SerializerInterface $serializer,
     ): JsonResponse {
         try {
+            /** @var \stdClass $payloadObject */
+            $payloadObject = (object) $request->toArray();
             /** @var array<string, mixed> $payload */
-            $payload = $serializer->deserialize(
-                $request->getContent(),
-                'array',
-                'json',
-                [
-                    AbstractNormalizer::ALLOW_EXTRA_ATTRIBUTES => false,
-                ],
-            );
-        } catch (NotEncodableValueException | NotNormalizableValueException | ExtraAttributesException) {
+            $payload = get_object_vars($payloadObject);
+        } catch (\JsonException) {
             return $this->jsonResponse([
                 'error' => 'Invalid JSON body.',
             ], $serializer, JsonResponse::HTTP_BAD_REQUEST);
@@ -311,16 +302,11 @@ class AnimalsController
         }
 
         try {
+            /** @var \stdClass $payloadObject */
+            $payloadObject = (object) $request->toArray();
             /** @var array<string, mixed> $payload */
-            $payload = $serializer->deserialize(
-                $request->getContent(),
-                'array',
-                'json',
-                [
-                    AbstractNormalizer::ALLOW_EXTRA_ATTRIBUTES => false,
-                ],
-            );
-        } catch (NotEncodableValueException | NotNormalizableValueException | ExtraAttributesException) {
+            $payload = get_object_vars($payloadObject);
+        } catch (\JsonException) {
             return $this->jsonResponse([
                 'error' => 'Invalid JSON body.',
             ], $serializer, JsonResponse::HTTP_BAD_REQUEST);
