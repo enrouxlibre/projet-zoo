@@ -1,0 +1,56 @@
+:root {
+    // --- Couleur primaire ---
+  --primary-color: #d97706; // orange principal
+  --primary-color-transparent: linear-gradient(
+  to right,
+  #92400e 0%,      
+  #facc15a8 50%,    
+  #92400e 100%    
+   );
+
+    // --- Couleur secondaire ---
+  --secondary-color: #6c757d; // gris secondaire
+
+    // --- Couleur d’accent ---
+  --accent-color: #e11d48; // rose vif pour attirer l’attention sur les éléments importants
+
+    // --- Couleurs neutres ---
+  --background-color: #f8f9fa; // fond clair
+  --surface-color: #ffffff;      // cartes, conteneurs
+  --border-color: #dee2e6;       // bordures légères
+
+    // --- Couleurs de texte ---
+  --text-color: #000000;             // texte principal
+  --secondary-text-color: #6c757d;   // texte secondaire
+  --text-disabled-color: #adb5bd;    // texte désactivé
+
+    // --- Couleurs d’état ---
+  --success-color: #28a745;  // succès
+  --warning-color: #ffc107;  // avertissement
+  --error-color: #dc3545;    // erreur
+  --info-color: #17a2b8;     // info
+}
+
+    // Dark mode
+.dark-mode {
+  --primary-color: #d97706; /* orange principal */
+  --primary-color-transparent: linear-gradient(
+    to right,
+    #92400e 0%,      /* côté gauche */
+    #facc15a8 50%,   /* milieu avec transparence */
+    #92400e 100%     /* côté droit */
+  );
+  --secondary-color: #6c757d; /* gris secondaire */
+  --accent-color: #e11d48; /* rose vif pour attirer l’attention sur les éléments importants */
+  --background-color: #121212; /* fond sombre */
+  --surface-color: #1e1e1e; /* cartes, conteneurs sombres */
+  --border-color: #333333; /* bordures plus visibles sur fond sombre */
+  --text-color: #ffffff; /* texte clair pour contraste */
+  --secondary-text-color: #b0b0b0; /* texte secondaire plus clair */
+  --text-disabled-color: #666666; /* texte désactivé plus visible que sur fond clair */
+  --success-color: #28a745; /* succès (inchangé) */
+  --warning-color: #ffc107; /* avertissement (inchangé) */
+  --error-color: #dc3545; /* erreur (inchangé) */
+  --info-color: #17a2b8; /* info (inchangé) */
+
+}
