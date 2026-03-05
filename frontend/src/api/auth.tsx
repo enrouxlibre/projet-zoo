@@ -1,6 +1,8 @@
+const url = "http://localhost:8000";
+
+// const url = import.meta.env.VITE_API_URL;
+
 export function login(email: string, password: string) {
-  const url = import.meta.env.VITE_API_URL;
-  console.log(url);
   return fetch(`${url}/api/login`, {
     method: "POST",
     headers: {
@@ -14,17 +16,14 @@ export function login(email: string, password: string) {
     .then((response) => response.json())
     .then((data) => {
       localStorage.setItem("csrfToken", data.csrfToken);
-      console.log("Success:", data);
       return data;
     })
     .catch((error) => {
-      console.error("Error:", error);
       throw error;
     });
 }
 
 export function logout() {
-  const url = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("csrfToken");
   if (!token) {
     console.error("No CSRF token found. User might not be logged in.");
@@ -38,11 +37,10 @@ export function logout() {
     },
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
+    .then(() => {
       localStorage.removeItem("csrfToken");
     })
     .catch((error) => {
-      console.error("Error:", error);
+      throw error;
     });
 }

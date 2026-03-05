@@ -6,18 +6,20 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!email.includes("@")) {
+    if (!regexEmail.test(email)) {
       setError("Email invalide");
       return;
     }
 
     try {
       await login(email, password);
+      window.location.href = "/";
     } catch (err) {
       setError("Identifiants incorrects");
     }
