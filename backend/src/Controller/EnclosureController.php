@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Enclosure;
+use App\Repository\AnimalsRepository;
 use App\Repository\EnclosureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Attributes as OA;
@@ -43,14 +44,22 @@ class EnclosureController
         ],
     )]
     #[Route('/api/enclosures', name: 'enclosure_list', methods: ['GET'])]
-    public function list(EnclosureRepository $enclosureRepository): JsonResponse
+    public function list(EnclosureRepository $enclosureRepository, SerializerInterface $serializer): JsonResponse
     {
         $enclosureList = $enclosureRepository->findBy([], ['id' => 'ASC']);
+        $response = $serializer->serialize($enclosureList, 'json', [
+            AbstractNormalizer::ATTRIBUTES => [
+                'id',
+                'name',
+                'clearance',
+                'positionX',
+                'positionY',
+                'size',
+                'animals' => ['id', 'uuid', 'name', 'gender', 'weight', 'size', 'age', 'species' => ['id', 'name', 'clearance', 'diet']],
+            ],
+        ]);
 
-        return new JsonResponse(array_map(
-            fn(Enclosure $enclosure): array => $this->toResponse($enclosure),
-            $enclosureList,
-        ));
+        return new JsonResponse($response, JsonResponse::HTTP_OK, [], true);
     }
 
     #[OA\Get(
@@ -98,6 +107,33 @@ class EnclosureController
         }
 
         return new JsonResponse($this->toResponse($enclosure));
+    }
+
+    #[Route('/api/enclosures/{id}/animals', name: 'enclosure_animals', methods: ['GET'])]
+    public function getAnimalsInEnclosure(?Enclosure $enclosure, AnimalsRepository $animalsRepository, SerializerInterface $serializer): JsonResponse
+    {
+        if ($enclosure === null) {
+            return new JsonResponse([
+                'error' => 'Enclosure not found.',
+            ], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $animals = $animalsRepository->findBy(['enclosure' => $enclosure]);
+        $response = $serializer->serialize($animals, 'json', [
+            AbstractNormalizer::ATTRIBUTES => [
+                'id',
+                'uuid',
+                'name',
+                'gender',
+                'weight',
+                'size',
+                'age',
+                'species' => ['id', 'name', 'clearance', 'diet'],
+            ],
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => static fn(object $object): mixed => method_exists($object, 'getId') ? $object->getId() : null,
+        ]);
+
+        return new JsonResponse($response, JsonResponse::HTTP_OK, [], true);
     }
 
     #[OA\Post(
