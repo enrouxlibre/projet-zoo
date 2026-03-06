@@ -1,10 +1,11 @@
-const url = "http://localhost:8000";
+const url = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 // const url = import.meta.env.VITE_API_URL;
 
 export function login(email: string, password: string) {
   return fetch(`${url}/api/login`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -31,6 +32,7 @@ export function logout() {
   }
   fetch(`${url}/api/logout`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       "X-CSRF-TOKEN": token,
