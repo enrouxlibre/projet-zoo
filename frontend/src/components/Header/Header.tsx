@@ -1,7 +1,16 @@
 import { NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 import "./Header.scss";
+import { logout } from "../../api/auth";
+import { useEffect, useState } from "react";
 function Header() {
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("csrfToken"));
+  }, []);
+
+  console.log(token);
   return (
     <div className="header">
       <img src={logo} alt="logo" className="logo" />
@@ -19,9 +28,24 @@ function Header() {
             <NavLink to="/contact">Contact</NavLink>
           </li>
 
-          <li>
-            <NavLink to="/login">Connexion</NavLink>
-          </li>
+          {!token ? (
+            <li>
+              <NavLink to="/login">Connexion</NavLink>
+            </li>
+          ) : (
+            <li>
+              <NavLink
+                to="/"
+                className="logout"
+                onClick={() => {
+                  logout();
+                  setToken(null);
+                }}
+              >
+                Déconnexion
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
