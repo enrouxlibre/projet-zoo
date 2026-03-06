@@ -2,7 +2,7 @@ const url = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 export function fetchAPI(endpoint: string, method: string, body?: any) {
   try {
-    return fetch(`${url}/api/${endpoint}/`, {
+    return fetch(`${url}/api/${endpoint}`, {
       method: method,
       credentials: "include",
       headers: {
