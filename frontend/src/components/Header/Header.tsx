@@ -33,18 +33,24 @@ function Header() {
               <NavLink to="/login">Connexion</NavLink>
             </li>
           ) : (
-            <li>
-              <NavLink
-                to="/"
-                className="logout"
-                onClick={() => {
-                  logout();
-                  setToken(null);
-                }}
-              >
-                Déconnexion
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/connected">Admin panel</NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/"
+                  className="logout"
+                  onClick={() => {
+                    logout();
+                    setToken(null);
+                  }}
+                >
+                  Déconnexion
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </nav>

@@ -24,7 +24,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     {
         $csrfToken = bin2hex(random_bytes(32));
 
-        $response = new JsonResponse(['message' => 'Login successful.','csrfToken' => $csrfToken]);
+        $response = new JsonResponse(['message' => 'Login successful.', 'csrfToken' => $csrfToken]);
 
         /** @var UserInterface $user */
         $user = $token->getUser();
@@ -37,6 +37,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             secure: $this->jwtCookieSecure,
             httpOnly: true,
             sameSite: $this->jwtCookieSameSite,
+            domain: '127.0.0.1',
         );
 
         $response->headers->setCookie($cookie);
@@ -47,6 +48,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             secure: $this->jwtCookieSecure,
             httpOnly: true,
             sameSite: $this->jwtCookieSameSite,
+            domain: '127.0.0.1',
         );
 
         $response->headers->setCookie($csrfCookie);

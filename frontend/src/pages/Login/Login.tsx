@@ -19,7 +19,7 @@ function Login() {
 
     try {
       await login(email, password);
-      window.location.href = "/";
+      window.location.href = "/connected";
     } catch (err) {
       setError("Identifiants incorrects");
     }
