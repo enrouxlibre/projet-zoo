@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Animals;
 use App\Entity\Enclosure;
 use App\Entity\Species;
+use App\Enum\Gender;
 use App\Repository\AnimalsRepository;
 use App\Repository\EnclosureRepository;
 use App\Repository\SpeciesRepository;
@@ -158,11 +159,12 @@ class AnimalsController
         $age = $payload['age'] ?? null;
         $speciesId = $payload['speciesId'] ?? null;
         $enclosureId = $payload['enclosureId'] ?? null;
+        $genderEnum = is_int($gender) ? Gender::tryFrom($gender) : null;
 
         if (
             !is_string($name)
             || trim($name) === ''
-            || !is_bool($gender)
+            || $genderEnum === null
             || !is_int($weight)
             || !is_int($size)
             || !is_int($age)
@@ -199,7 +201,7 @@ class AnimalsController
 
         $animals
             ->setName(trim($name))
-            ->setGender($gender)
+            ->setGender($genderEnum)
             ->setWeight($weight)
             ->setSize($size)
             ->setAge($age)
@@ -218,7 +220,7 @@ class AnimalsController
             'id' => $animals->getId(),
             'uuid' => $animals->getUuid()?->toRfc4122(),
             'name' => $animals->getName(),
-            'gender' => $animals->isGender(),
+            'gender' => $animals->getGender(),
             'weight' => $animals->getWeight(),
             'size' => $animals->getSize(),
             'age' => $animals->getAge(),
