@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Gender;
 use App\Repository\AnimalsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -25,8 +26,8 @@ class Animals
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?bool $gender = null;
+    #[ORM\Column(enumType: Gender::class)]
+    private ?Gender $gender = null;
 
     #[ORM\Column]
     private ?int $weight = null;
@@ -87,12 +88,12 @@ class Animals
         return $this;
     }
 
-    public function isGender(): ?bool
+    public function getGender(): ?Gender
     {
         return $this->gender;
     }
 
-    public function setGender(bool $gender): static
+    public function setGender(Gender $gender): static
     {
         $this->gender = $gender;
 

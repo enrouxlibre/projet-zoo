@@ -9,6 +9,7 @@ use App\Entity\Species;
 use App\Entity\User;
 use App\Entity\UserProfile;
 use App\Enum\ClearanceLevel;
+use App\Enum\Gender;
 use App\Enum\SpeciesDiet;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -93,13 +94,13 @@ class AppFixtures extends Fixture
         }
 
         $animalsData = [
-            ['name' => 'Rexy', 'gender' => true, 'weight' => 7000, 'size' => 13, 'age' => 12, 'species' => 'Tyrannosaurus rex', 'enclosure' => 'Carnivore Zone Alpha'],
-            ['name' => 'Stormclaw', 'gender' => false, 'weight' => 90, 'size' => 2, 'age' => 6, 'species' => 'Velociraptor', 'enclosure' => 'Raptor Compound'],
-            ['name' => 'AquaFang', 'gender' => true, 'weight' => 8200, 'size' => 15, 'age' => 14, 'species' => 'Spinosaurus', 'enclosure' => 'Carnivore Zone Alpha'],
-            ['name' => 'Trike', 'gender' => false, 'weight' => 6000, 'size' => 9, 'age' => 10, 'species' => 'Triceratops', 'enclosure' => 'Waterfront Paddock'],
-            ['name' => 'Spike', 'gender' => true, 'weight' => 5000, 'size' => 8, 'age' => 11, 'species' => 'Stegosaurus', 'enclosure' => 'Herbivore Plains'],
-            ['name' => 'Tank', 'gender' => false, 'weight' => 7000, 'size' => 7, 'age' => 13, 'species' => 'Ankylosaurus', 'enclosure' => 'Omnivore Habitat'],
-            ['name' => 'Swiftfoot', 'gender' => true, 'weight' => 450, 'size' => 4, 'age' => 5, 'species' => 'Gallimimus', 'enclosure' => 'Herbivore Plains'],
+            ['name' => 'Rexy', 'gender' => Gender::FEMALE, 'weight' => 7000, 'size' => 13, 'age' => 12, 'species' => 'Tyrannosaurus rex', 'enclosure' => 'Carnivore Zone Alpha'],
+            ['name' => 'Stormclaw', 'gender' => Gender::MALE, 'weight' => 90, 'size' => 2, 'age' => 6, 'species' => 'Velociraptor', 'enclosure' => 'Raptor Compound'],
+            ['name' => 'AquaFang', 'gender' => Gender::FEMALE, 'weight' => 8200, 'size' => 15, 'age' => 14, 'species' => 'Spinosaurus', 'enclosure' => 'Carnivore Zone Alpha'],
+            ['name' => 'Trike', 'gender' => Gender::MALE, 'weight' => 6000, 'size' => 9, 'age' => 10, 'species' => 'Triceratops', 'enclosure' => 'Waterfront Paddock'],
+            ['name' => 'Spike', 'gender' => Gender::FEMALE, 'weight' => 5000, 'size' => 8, 'age' => 11, 'species' => 'Stegosaurus', 'enclosure' => 'Herbivore Plains'],
+            ['name' => 'Tank', 'gender' => Gender::MALE, 'weight' => 7000, 'size' => 7, 'age' => 13, 'species' => 'Ankylosaurus', 'enclosure' => 'Omnivore Habitat'],
+            ['name' => 'Swiftfoot', 'gender' => Gender::FEMALE, 'weight' => 450, 'size' => 4, 'age' => 5, 'species' => 'Gallimimus', 'enclosure' => 'Herbivore Plains'],
         ];
 
         foreach ($animalsData as $data) {
