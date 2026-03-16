@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
     {
         $user = new User();
         $user->setEmail('test@example.com');
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $user->setPassword(
             $this->passwordHasher->hashPassword($user, 'test1234')
         );
@@ -133,7 +133,7 @@ class AppFixtures extends Fixture
 
         $usersData = [
             ['email' => 'user1@example.com', 'firstName' => 'Alice', 'lastName' => 'Martin', 'telephone' => '+33100000002', 'job' => 'Ranger', 'clearance' => ClearanceLevel::MODERATE, 'dateOfBirth' => '1988-02-03'],
-            ['email' => 'user2@example.com', 'firstName' => 'Bruno', 'lastName' => 'Lefevre', 'telephone' => '+33100000003', 'job' => 'Security Officer', 'clearance' => ClearanceLevel::CRITICAL, 'dateOfBirth' => '1985-06-21'],
+            ['email' => 'user2@example.com', 'firstName' => 'Bruno', 'lastName' => 'Lefevre', 'telephone' => '+33100000003', 'job' => 'Security Officer', 'clearance' => ClearanceLevel::CRITICAL, 'dateOfBirth' => '1985-06-21', 'roles' => ['ROLE_ADMIN']],
             ['email' => 'user3@example.com', 'firstName' => 'Claire', 'lastName' => 'Dupont', 'telephone' => '+33100000004', 'job' => 'Biologist', 'clearance' => ClearanceLevel::HIGH, 'dateOfBirth' => '1992-11-10'],
             ['email' => 'user4@example.com', 'firstName' => 'David', 'lastName' => 'Moreau', 'telephone' => '+33100000005', 'job' => 'Veterinarian', 'clearance' => ClearanceLevel::HIGH, 'dateOfBirth' => '1991-09-05'],
             ['email' => 'user5@example.com', 'firstName' => 'Emma', 'lastName' => 'Petit', 'telephone' => '+33100000006', 'job' => 'Animal Caretaker', 'clearance' => ClearanceLevel::LOW, 'dateOfBirth' => '1995-04-17'],
@@ -148,7 +148,7 @@ class AppFixtures extends Fixture
             $seededUser = new User();
             $seededUser
                 ->setEmail($data['email'])
-                ->setRoles(['ROLE_USER'])
+                ->setRoles($data['roles'] ?? ['ROLE_USER'])
                 ->setPassword(
                     $this->passwordHasher->hashPassword($seededUser, 'test1234')
                 );
