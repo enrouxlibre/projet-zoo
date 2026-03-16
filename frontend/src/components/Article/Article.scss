@@ -1,0 +1,29 @@
+.article {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  padding: 25px;
+  &.left {
+    flex-direction: row;
+  }
+  &.right {
+    flex-direction: row-reverse;
+  }
+  img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+  }
+  .article-text {
+    width: 30%;
+    h3 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    p {
+      margin: 5px 0 0;
+      color: var(--secondary-text-color);
+    }
+  }
+}
